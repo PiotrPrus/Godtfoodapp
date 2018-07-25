@@ -4,4 +4,6 @@
     <string name="generic_retry">Retry</string>
     <string name="fetch_recipe_error">An error occurs while fetching data</string>
     <string name="recipe_item_image_description">Food picture</string>
+    <string name="search_hint">Search title or ingredient</string>
+    <string name="menu_search">Search</string>
 </resources>
