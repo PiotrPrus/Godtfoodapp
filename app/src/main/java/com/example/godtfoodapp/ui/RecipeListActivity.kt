@@ -1,10 +1,7 @@
 package com.example.godtfoodapp.ui
 
-import android.app.SearchManager
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -17,13 +14,17 @@ import android.view.MenuItem
 import com.example.godtfoodapp.R
 import com.example.godtfoodapp.databinding.ActivityRecipeListBinding
 import com.example.godtfoodapp.di.ViewModelFactory
-import com.example.godtfoodapp.utils.toast
+import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView
+import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_recipe_list.*
+
 
 class RecipeListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecipeListBinding
     private lateinit var viewModel: RecipeListViewModel
     private var errorSnackBar: Snackbar? = null
+    private lateinit var filterDisposable: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,12 @@ class RecipeListActivity : AppCompatActivity() {
             }
         })
         binding.viewModel = viewModel
-        handleIntent(intent)
+        setSupportActionBar(recipe_list_toolbar)
+    }
+
+    override fun onDestroy() {
+        filterDisposable.dispose()
+        super.onDestroy()
     }
 
     private fun showError(errorMessage: Int) {
@@ -52,29 +58,24 @@ class RecipeListActivity : AppCompatActivity() {
         errorSnackBar?.dismiss()
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        handleIntent(intent)
-    }
-
-    private fun handleIntent(intent: Intent?) {
-        if (Intent.ACTION_SEARCH == intent?.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            toast("I will search database for: $query")
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
-        val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
-        val searchManager: SearchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.setIconifiedByDefault(false)
+        initSearchMenuItem(menu)
         return true
+    }
+
+    private fun initSearchMenuItem(menu: Menu?) {
+        val searchItem: MenuItem = menu!!.findItem(R.id.action_search)
+        val searchView: SearchView = searchItem.actionView as SearchView
+        searchView.setIconifiedByDefault(false)
+        searchView.queryHint = getString(R.string.search_hint)
+        filterDisposable = RxSearchView.queryTextChanges(searchView)
+                .skipInitialValue().subscribe { query -> viewModel.filterList(query.toString()) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-            R.id.search -> {
+            R.id.action_search -> {
                 onSearchRequested()
                 true
             }

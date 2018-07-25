@@ -58,7 +58,7 @@ class RecipeListViewModel(private val recipeDao: RecipeDao) : BaseViewModel() {
 
     private fun onFetchRecipeListError(error: Throwable) {
         errorMessage.value = R.string.fetch_recipe_error
-        Log.d("Network", "Error message: "+ error.message)
+        Log.d("Network", "Error message: " + error.message)
     }
 
     private fun onFetchRecipeListSuccess(result: List<Recipe>) {
@@ -72,5 +72,31 @@ class RecipeListViewModel(private val recipeDao: RecipeDao) : BaseViewModel() {
     private fun onFetchRecipeListStart() {
         loadingVisibility.value = View.VISIBLE
         errorMessage.value = null
+    }
+
+    fun filterList(query: String) {
+        Observable.fromCallable { filterTitlesAndIngredients(query) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { filteredList -> recipeListAdapter.setData(filteredList) }
+    }
+
+    private fun filterTitlesAndIngredients(query: String): MutableList<Recipe> {
+        val recipeList = recipeDao.all
+        val filteredList: MutableList<Recipe> = mutableListOf()
+        for (recipe in recipeList) {
+            if (recipe.title.contains(query, true)) {
+                filteredList.add(recipe)
+            } else {
+                for (ingredient in recipe.ingredients) {
+                    for (element in ingredient.elements) {
+                        if (element.name.contains(query, true)) {
+                            filteredList.add(recipe)
+                        }
+                    }
+                }
+            }
+        }
+        return filteredList
     }
 }

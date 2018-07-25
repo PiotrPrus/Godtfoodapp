@@ -9,6 +9,7 @@ import com.example.godtfoodapp.databinding.RecipeItemBinding
 import com.example.godtfoodapp.model.Recipe
 
 class RecipeListAdapter : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
+
     private lateinit var recipeList: List<Recipe>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
