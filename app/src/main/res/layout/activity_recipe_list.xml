@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.godtfoodapp.ui.RecipeListViewModel" />
+            type="com.example.godtfoodapp.ui.main.RecipeListViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.example.godtfoodapp.ui
+package com.example.godtfoodapp.ui.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders

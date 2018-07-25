@@ -1,4 +1,4 @@
-package com.example.godtfoodapp.ui
+package com.example.godtfoodapp.ui.main
 
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
@@ -8,7 +8,7 @@ import com.example.godtfoodapp.base.BaseViewModel
 import com.example.godtfoodapp.model.Recipe
 import com.example.godtfoodapp.model.RecipeDao
 import com.example.godtfoodapp.network.GodtApi
-import com.example.godtfoodapp.ui.recipe.RecipeListAdapter
+import com.example.godtfoodapp.ui.main.recipe.RecipeListAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

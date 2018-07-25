@@ -4,7 +4,8 @@ import android.arch.lifecycle.ViewModel
 import com.example.godtfoodapp.di.component.DaggerViewModelInjector
 import com.example.godtfoodapp.di.component.ViewModelInjector
 import com.example.godtfoodapp.di.module.NetworkModule
-import com.example.godtfoodapp.ui.RecipeListViewModel
+import com.example.godtfoodapp.ui.detail.RecipeDetailViewModel
+import com.example.godtfoodapp.ui.main.RecipeListViewModel
 
 abstract class BaseViewModel: ViewModel() {
 
@@ -21,6 +22,7 @@ abstract class BaseViewModel: ViewModel() {
     private fun inject() {
         when(this) {
             is RecipeListViewModel -> injector.inject(this)
+            is RecipeDetailViewModel -> injector.inject(this)
         }
     }
 }

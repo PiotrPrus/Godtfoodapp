@@ -1,4 +1,4 @@
-package com.example.godtfoodapp.ui.recipe
+package com.example.godtfoodapp.ui.main.recipe
 
 import android.arch.lifecycle.MutableLiveData
 import com.example.godtfoodapp.base.BaseViewModel

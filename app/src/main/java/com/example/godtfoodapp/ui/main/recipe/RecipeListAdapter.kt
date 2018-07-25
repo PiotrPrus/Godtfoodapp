@@ -1,4 +1,4 @@
-package com.example.godtfoodapp.ui.recipe
+package com.example.godtfoodapp.ui.main.recipe
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView

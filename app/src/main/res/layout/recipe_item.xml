@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.godtfoodapp.ui.recipe.RecipeViewModel" />
+            type="com.example.godtfoodapp.ui.main.recipe.RecipeViewModel" />
     </data>
 
     <android.support.v7.widget.CardView

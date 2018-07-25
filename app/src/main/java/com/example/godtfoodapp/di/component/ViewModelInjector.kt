@@ -1,7 +1,8 @@
 package com.example.godtfoodapp.di.component
 
 import com.example.godtfoodapp.di.module.NetworkModule
-import com.example.godtfoodapp.ui.RecipeListViewModel
+import com.example.godtfoodapp.ui.detail.RecipeDetailViewModel
+import com.example.godtfoodapp.ui.main.RecipeListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -10,6 +11,7 @@ import javax.inject.Singleton
 interface ViewModelInjector {
 
     fun inject(recipeListViewModel: RecipeListViewModel)
+    fun inject(recipeDetailViewModel: RecipeDetailViewModel)
 
     @Component.Builder
     interface Builder {

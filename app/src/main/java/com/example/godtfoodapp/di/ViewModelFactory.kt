@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.persistence.room.Room
 import android.support.v7.app.AppCompatActivity
 import com.example.godtfoodapp.model.database.RecipeDatabase
-import com.example.godtfoodapp.ui.RecipeListViewModel
+import com.example.godtfoodapp.ui.main.RecipeListViewModel
 
 class ViewModelFactory(private val activity: AppCompatActivity): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
