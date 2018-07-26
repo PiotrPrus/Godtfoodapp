@@ -3,12 +3,13 @@ package com.example.godtfoodapp.ui.main.recipe
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.example.godtfoodapp.R
 import com.example.godtfoodapp.databinding.RecipeItemBinding
 import com.example.godtfoodapp.model.Recipe
 
-class RecipeListAdapter : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
+class RecipeListAdapter(private val onClickListener: (Recipe) -> Unit) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
     private lateinit var recipeList: List<Recipe>
 
@@ -22,7 +23,7 @@ class RecipeListAdapter : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(recipeList[position])
+        holder.bind(recipeList[position], onClickListener)
     }
 
     fun setData(data: List<Recipe>){
@@ -33,8 +34,9 @@ class RecipeListAdapter : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
     class ViewHolder(private val binding: RecipeItemBinding) : RecyclerView.ViewHolder(binding.root) {
         private val viewModel = RecipeViewModel()
 
-        fun bind(recipe: Recipe) {
+        fun bind(recipe: Recipe, onClickListener: (Recipe) -> Unit) {
             viewModel.bind(recipe)
+            binding.root.setOnClickListener { onClickListener(recipe) }
             binding.viewModel = viewModel
         }
     }

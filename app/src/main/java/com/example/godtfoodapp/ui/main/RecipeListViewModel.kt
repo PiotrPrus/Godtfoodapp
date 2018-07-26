@@ -23,7 +23,12 @@ class RecipeListViewModel(private val recipeDao: RecipeDao) : BaseViewModel() {
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
     val errorClickListener = View.OnClickListener { loadRecipes() }
-    val recipeListAdapter = RecipeListAdapter()
+    val recipeListAdapter = RecipeListAdapter { recipe -> onClick(recipe)}
+    val onClickEvent = MutableLiveData<Recipe>()
+
+    private fun onClick(recipe: Recipe) {
+        onClickEvent.value = recipe
+    }
 
     private lateinit var subscription: Disposable
 

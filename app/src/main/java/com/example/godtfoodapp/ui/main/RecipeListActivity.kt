@@ -2,6 +2,7 @@ package com.example.godtfoodapp.ui.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -14,6 +15,8 @@ import android.view.MenuItem
 import com.example.godtfoodapp.R
 import com.example.godtfoodapp.databinding.ActivityRecipeListBinding
 import com.example.godtfoodapp.di.ViewModelFactory
+import com.example.godtfoodapp.model.Recipe
+import com.example.godtfoodapp.ui.detail.RecipeDetailActivity
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_recipe_list.*
@@ -41,6 +44,11 @@ class RecipeListActivity : AppCompatActivity() {
         })
         binding.viewModel = viewModel
         setSupportActionBar(recipe_list_toolbar)
+        viewModel.onClickEvent.observe(this, Observer { recipe -> startDetailActivity(recipe) })
+    }
+
+    private fun startDetailActivity(recipe: Recipe?) {
+        startActivity(Intent(this, RecipeDetailActivity::class.java))
     }
 
     override fun onDestroy() {
